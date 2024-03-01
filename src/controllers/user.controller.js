@@ -17,11 +17,11 @@ const Resister = asyncHandler( async (req,res , error) => {
   const existedUser =  await User.findOne({email})
 
   if (existedUser ) {
-    throw new ApiError(409,"user with email already exist")
+    next(new ApiError(409,"user with email already exist"));
   }
    
 if (!req.files[0].path) {
-  throw new ApiError(500 , "avatar not Found !!!");
+  next( new ApiError(500 , "avatar not Found !!!"));
 }
 
     const avatar = await uploadCloudnary(req.files[0].path)
