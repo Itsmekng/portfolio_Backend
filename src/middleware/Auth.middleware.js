@@ -9,7 +9,7 @@ const isAuthenticatedUser = asyncHandler(async (req, res, next) => {
     const token = req.cookies.token
 
     if (!token) {
-        return next(new ApiError(401, "Please login to access this resource"));
+        return next(new ApiError(401, "Please login to access this resource !!!"));
     }
 
     try {
