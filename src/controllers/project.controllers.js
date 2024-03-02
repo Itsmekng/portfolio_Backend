@@ -15,7 +15,7 @@ const CreateProject = asyncHandler( async (req , res , next) =>{
         };
 
         if (!req.files[0].path) {
-                next(new ApiError(500 , "Project Image not Found !!!") );
+                throw new ApiError(500 , "Project Image not Found !!!");
               }
               
               
