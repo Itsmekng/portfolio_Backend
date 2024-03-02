@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import validator from "validator";
 import bcryptjs from "bcryptjs";
 import jwt  from "jsonwebtoken";
 import crypto from "crypto"
@@ -15,7 +14,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true,"email is manditory"],
         unique:true,
-        validate:[validator.isEmail,"please Enter a valid Email !!!"]
+     
     },
 
     password:{
