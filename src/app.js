@@ -31,11 +31,11 @@ import  Portfolio  from "./routes/project.routes.js";
 
 // app.use("/fanscart",trial)
 
-app.use("/api/portfolio",User)
+app.use("/portfolio",User)
 
-app.use("/api/portfolio",ContactUs)
+app.use("/portfolio",ContactUs)
 
-app.use("/api/portfolio",Portfolio)
+app.use("/portfolio",Portfolio)
 
 
 
