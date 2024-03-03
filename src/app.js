@@ -6,7 +6,10 @@ const app = express()
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
-    credentials: true
+    credentials: true,
+       methods: ["GET", "POST", "PUT", "DELETE"],
+      
+
 }))
 
 app.use(express.json({limit: "16kb"}))
@@ -28,11 +31,11 @@ import  Portfolio  from "./routes/project.routes.js";
 
 // app.use("/fanscart",trial)
 
-app.use("/portfolio",User)
+app.use("/api/portfolio",User)
 
-app.use("/portfolio",ContactUs)
+app.use("/api/portfolio",ContactUs)
 
-app.use("/portfolio",Portfolio)
+app.use("/api/portfolio",Portfolio)
 
 
 

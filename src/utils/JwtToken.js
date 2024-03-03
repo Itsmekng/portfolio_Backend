@@ -12,8 +12,14 @@ const SendToken = (user , statusCode , res ) => {
         ),
         httpOnly: true,
         secure: true,
+<<<<<<< HEAD
         SameSite: "none",
     
+=======
+      sameSite: "Strict"
+        
+      
+>>>>>>> b5a754a8c3968bc9c3e800ced80f5df7da954bf3
     };
 
     res.status(statusCode).cookie("token", token , options ).json({
