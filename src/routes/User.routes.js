@@ -25,7 +25,7 @@ router.route("/FindUser/:email").get(  isAuthenticatedUser,authorizeRoles("Admin
 
 router.route("/UpdateRole/:id").put( isAuthenticatedUser,authorizeRoles("Admin"), updateRole);
 
-router.route("/DeleteUser/:id").delete( isAuthenticatedUser,authorizeRoles("Admin"), DeleteUser);
+router.route("/DeleteUser/:id").post( isAuthenticatedUser,authorizeRoles("Admin"), DeleteUser);
 
 
 export default router; 

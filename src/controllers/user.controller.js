@@ -42,12 +42,19 @@ if (!req.files[0].path) {
     }
   })
 
-  SendToken( user,201,res);
+  const token = user.getJWTToken();
+
+  res.status(200).json({
+    success: true,
+    user,
+    token
+  })
 
 });
 
 const LoginUser = asyncHandler(async (req, res,next) => {
- 
+
+
   const { email , password } = req.body;
   
 
@@ -70,18 +77,19 @@ const LoginUser = asyncHandler(async (req, res,next) => {
     return next(new ApiError(400,"Invalid Email and Password"));
   }
 
+  const token = user.getJWTToken();
  
- 
-SendToken(user , 200 ,res)
+  res.status(200).json({
+    success: true,
+    user,
+    token
+  })
  });
     
 
 const LogoutUser = asyncHandler(async (req,res , next) => {
 
-  res.cookie("token",null,{
-    expire: new Date(Date.now()),
-    httpOnly: true, 
-  })
+  
 
   res.status(200).json({
     success: true,
@@ -239,7 +247,7 @@ const user = await User.findByIdAndUpdate(req.params.id, newUser, {
 const DeleteUser = asyncHandler(async (req,res , next) => {
 
   const user = await User.findById(req.params.id);
-
+console.log(req.params.id)
   if (!user) {
     return next(new ApiError(404, "User not found"));
   }

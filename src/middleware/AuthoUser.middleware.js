@@ -5,7 +5,9 @@ import { jwtDecode } from "jwt-decode"
 
 const authorizeRoles = (...roles) => {
     return async (req,_,next) => {    
-        const token = req.cookies.token;  // Assuming token is stored under 'token' key
+        
+    const token = req.headers['authorization'];
+  
 
         
     

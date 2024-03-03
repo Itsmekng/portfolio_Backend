@@ -6,7 +6,9 @@ import { jwtDecode } from "jwt-decode"
 const isAuthenticatedUser = asyncHandler(async (req, res, next) => {
 
  
-    const token = req.cookies.token
+    const token = req.headers['authorization'];
+  
+  
 
     if (!token) {
         return next(new ApiError(401, "Please login to access this resource !!!"));
@@ -18,7 +20,7 @@ const isAuthenticatedUser = asyncHandler(async (req, res, next) => {
         const decode = jwtDecode(token)
        
        req.user = await User.findById(decode.id);
-    
+  
         next();
     } catch (error) {
         // Handle JWT verification errors
