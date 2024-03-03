@@ -20,7 +20,7 @@ const Resister = asyncHandler( async (req,res , error) => {
   }
    
 if (!req.files[0].path) {
-  throw new ApiError(500 , "avatar not Found !!!");
+  throw new ApiError(400 , "avatar not Found !!!");
 }
 
     const avatar = await uploadCloudnary(req.files[0].path)
