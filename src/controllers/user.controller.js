@@ -6,10 +6,9 @@ import { uploadCloudnary } from "../Cloudnary/Cloudnary.js";
 
 // resister a user
 
-const Resister = asyncHandler( async (req,res , error) => {
-   
-
-   
+const Resister = asyncHandler( async(req,res , next ) => {
+  
+  
   const {name , email , password} = req.body;
  
   
@@ -19,17 +18,31 @@ const Resister = asyncHandler( async (req,res , error) => {
     throw new ApiError(409,"user with email already exist")
   }
    
+if (!req.files[0].path) {
+  throw new ApiError(500 , "avatar not Found !!!");
+}
 
-  
+
+
+    const avatar = await uploadCloudnary(req.files[0].path)
+
+
+    if (!avatar) {
+      console.log("here is the problem hello")
+    }
+
+
+
   const user = await User.create({
     name , email , password ,
     avatar:{
-        public_id: "sample public id",
-        url: "sample Id",
+        public_id: avatar.public_id,
+        url:avatar.url,
     }
   })
 
-  const token = user.getJWTToken();
+
+  const token = await user.getJWTToken();
 
   res.status(200).json({
     success: true,
@@ -247,5 +260,34 @@ console.log(req.params.id)
 });
 
 
+const newsletter = asyncHandler(async (req, res, next) => {
+  const  email  = req.params.email; // Destructure email from req.body
 
-export { Resister , LoginUser ,LogoutUser, GetUserDetails , ResetPassword , UpdateUserProfile , AllUsers , FindUser ,DeleteUser , updateRole };
+  const authEmail =  req.user.email;
+
+  console.log("waha")
+
+  if (! (email === authEmail )) {
+    return next(new ApiError( 400,"Please enter your email !!!"))
+  }
+
+  const user = await User.findOne({ email });
+
+
+  if (!user) {
+    return next(new ApiError(404, "User not found"));
+  }
+
+  user.Newletter = !user.Newletter;
+
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+
+export { Resister , LoginUser ,LogoutUser, GetUserDetails , ResetPassword , UpdateUserProfile , AllUsers , FindUser ,DeleteUser , updateRole , newsletter };

@@ -108,7 +108,7 @@ const LikeAndDislike = asyncHandler( async (req , res , next) =>{
     // Save the updated project
     await project.save();
 
-    return res.json({ message: 'Like updated successfully', liked: !alreadyLiked });
+    return res.json({ message: 'Like updated successfully', liked: !alreadyLiked ? "Likes successfully" : "like remove successfully" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
